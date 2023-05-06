@@ -1,13 +1,33 @@
 <template>
-    <div>
-        <h1>Sidebar Product</h1>
+    <div class="product__content">
+        <div class="product__title">
+            <div class="product__image">
+                <img src="../img/Food.png" alt="">
+                <span>{{ product.name }}</span>
+            </div>
+            <div class="product__control">
+                <input type="number">
+                <span>{{ product.price }}</span>
+            </div>
+        </div>
+        <div class="product__input">
+            <input type="text" placeholder="Order Note...">
+            <button class="btn__delete">
+                <i class="bx bx-trash"></i>
+            </button>
+        </div>
     </div>
 </template>
 <script>
 export default {
-    
+    props: {
+        product: {
+            type: Object,
+            required: true
+        }
+    }
 }
 </script>
-<style lang="">
+<style>
     
 </style>

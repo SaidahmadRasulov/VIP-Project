@@ -1,6 +1,6 @@
 <template>
-    <div class="about__section">
-        <h1>About</h1>
+    <div class="notif__section">
+        <h1>notification</h1>
     </div>
 </template>
 <script>
@@ -9,7 +9,7 @@ export default {
 }
 </script>
 <style lang="scss">
-    .about__section {
+    .notif__section {
         height: 100vh;
     }
 </style>

@@ -25,9 +25,18 @@
         <section class="home__sidebar">
             <h1 class="sidebar__title">Orders #{{ orders }}</h1>
             <div class="sidebar__btns">
-
+                <button>Dine In</button>
+                <button>To Go</button>
+                <button>Delivery</button>
             </div>
-            <div class="container">
+            <div class="sidebar__navbar">
+                <span>Item</span>
+                <div class="sidebar__navbar_group">
+                    <span>Qty</span>
+                    <span>Price</span>
+                </div>
+            </div>
+            <div class="container sidebar__container">
                 <SidebarProduct v-for="product in products" v-bind:product="product" />
             </div>
         </section>
@@ -131,6 +140,35 @@ export default {
         font-weight: 400;
         color: white;
     }
+    .sidebar__navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 3.5014005602240896vh 0;
+        font-size: 2.5vh;
+        color: white;
+        .sidebar__navbar_group {
+            display: flex;
+            gap: 1.0416666666666667vw;
+        }
+    }
+    .sidebar__btns {
+        margin: 4.901960784313726vh 0;
+        display: flex;
+        gap:  1.0416666666666667vw;
+        button {
+            width: 5.208333333333333vw;
+            height: 4.901960784313726vh;
+            font-size: 2.2408963585434174vh;
+        }
+    }
+}
+.sidebar__container {
+    border: 1px solid #393C49;
+    border-left: none;
+    border-right: none;
+    height: 52.01960784313726vh;
+    overflow-y: scroll;
 }
 
 @media (min-width: 0px) and (max-width: 520px) {

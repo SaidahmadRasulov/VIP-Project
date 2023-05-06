@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card__header">  
-            <img :src="product.image" alt="rasm-bor">
+            <img src="../img/Food.png" alt="rasm-bor">
         </div>
         <div class="card__body">
             <p>{{ product.name }}</p>

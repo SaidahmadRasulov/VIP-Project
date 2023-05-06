@@ -1,12 +1,16 @@
+<script setup>
+import {RouterView} from 'vue-router'
+</script>
+
 <template>
   <div class="flex__container">
     <CNavbar />
-    <CHome v-bind:products="products" v-bind:orders="orders" :filterHandler="filterHandler(filter)" />
+    <RouterView  v-bind:products="products" v-bind:orders="orders" :filterHandler="filterHandler(filter)"/>
   </div>
 </template>
 <script>
 import CNavbar from './Components/CNavbar/CNavbar.vue';
-import CHome from './Components/CHome/CHome.vue'
+import CHome from './Components/CHome/CHome.vue';
 
 export default {
   data() {
