@@ -6,7 +6,7 @@
                 <span>{{ product.name }}</span>
             </div>
             <div class="product__control">
-                <input type="number">
+                <input type="number" id="orderQuantity">
                 <span>{{ product.price }}</span>
             </div>
         </div>
@@ -19,6 +19,9 @@
     </div>
 </template>
 <script>
+const orderQuantity = document.getElementById("orderQuantity")
+// const orderQuantityValue = orderQuantity.value;
+
 export default {
     props: {
         product: {
@@ -28,6 +31,10 @@ export default {
     }
 }
 </script>
-<style>
-    
+<style lang="scss">
+    .product__control{
+        span{
+            color: white;
+        }
+    }
 </style>
