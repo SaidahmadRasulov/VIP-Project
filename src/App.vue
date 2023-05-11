@@ -5,12 +5,11 @@ import {RouterView} from 'vue-router'
 <template>
   <div class="flex__container">
     <CNavbar />
-    <RouterView  v-bind:products="products" v-bind:orders="orders" :filterHandler="filterHandler(filter)"/>
+    <RouterView  v-bind:products="products" v-bind:orders="orders"/>
   </div>
 </template>
 <script>
 import CNavbar from './Components/CNavbar/CNavbar.vue';
-import CHome from './Components/CHome/CHome.vue';
 
 export default {
   data() {
@@ -74,28 +73,10 @@ export default {
       orders: 3345
     }
   },
-  components: { CNavbar, CHome },
+  components: { CNavbar },
   methods: {
     handleToggleState() {
       console.log('Toggle')
-    },
-    filterHandler(arr, filter) {
-      switch (filter) {
-        case "hot" :
-          return arr.filter(item => item.category == 'hot')
-        case "cold" :
-          return arr.filter(item => item.category == 'cold')
-        case "soup" :
-          return arr.filter(item => item.category == 'soup')
-        case "grill" :
-          return arr.filter(item => item.category == 'grill')
-        case "appetiz" :
-          return arr.filter(item => item.category == 'appetiz')
-        case "desert" :
-          return arr.filter(item => item.category == 'desert')
-        default : 
-          return arr
-      }
     }
   }
 }
@@ -106,6 +87,15 @@ export default {
   padding: 0;
   box-sizing: border-box;
   font-family: sans-serif;
+}
+::-webkit-scrollbar {
+  width: 0.5208333333333334vw;
+  background-color:  #1F1D2B;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #252836;
 }
 
 $baseDark: #1F1D2B;

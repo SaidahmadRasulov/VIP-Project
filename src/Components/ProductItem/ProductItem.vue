@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card" @click="addArray">
         <div class="card__header">  
             <img src="../img/Food.png" alt="rasm-bor">
         </div>
@@ -21,6 +21,11 @@ export default {
             type: Object,
             required: true
         }
+    },
+    methods: {
+        addArray() {
+            this.$emit('handleArrayPush', this.product)
+        }
     }
 }
 </script>
@@ -31,6 +36,7 @@ export default {
         background-color: #1F1D2B;
         border-radius: 1.0416666666666667vw;
         margin-bottom: 14.005602240896359vh;
+        cursor: pointer;
         .card__header {
             width:  9.765625vw;
             height: 21.008403361344538vh;
@@ -59,6 +65,9 @@ export default {
         .gray__p {
             color: gray;
             font-size: 1.9607843137254901vh;
+        }
+        &:hover {
+            box-shadow: 0 0 10px 0 #1F1D2B;
         }
     }
 

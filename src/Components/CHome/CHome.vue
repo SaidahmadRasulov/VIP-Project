@@ -16,8 +16,11 @@
                     <div class="home__navbar">
                         <h1>Home Navbar</h1>
                     </div>
-                    <div class="products__content">
-                        <ProductItem v-for="product in products" v-bind:product="product" />
+                    <div class="products__content" v-if="products.length > 0">
+                        <ProductItem @handleArrayPush="handleAddToOrders" v-for="product in products" v-bind:product="product" />
+                    </div>
+                    <div class="products__content" v-else>
+                        <h1>Not Date</h1>
                     </div>
                 </div>
             </div>
@@ -37,7 +40,7 @@
                 </div>
             </div>
             <div class="container sidebar__container">
-                <SidebarProduct v-for="product in products" v-bind:product="product" />
+                <SidebarProduct @delete="handleDelete" v-bind:products="ordersArray" />
             </div>
         </section>
     </div>
@@ -49,6 +52,11 @@ import SidebarProduct from '../SidebarProduct/SidebarProduct.vue';
 import moment from 'moment'
 
 export default {
+    data() {
+        return {
+            ordersArray: []
+        }
+    },
     components: {
         ProductItem,
         SidebarProduct
@@ -67,6 +75,24 @@ export default {
     computed: {
         formattedDate(){
             return moment(this.date).format("dddd D MMM, YYYY");
+        },
+        productsProps() {
+            return {
+                products: [...this.products]
+            }
+        }
+    },
+    methods: {
+        handleDelete(id) {
+            this.ordersArray.splice(id, 1)
+        },
+        handleAddToOrders(product) {
+            // products.map((item) => {
+            //     if(item)
+            // })
+            // console.log(product)
+            this.ordersArray.push(product);
+            console.log(this.ordersArray)
         }
     }
 }
@@ -149,7 +175,7 @@ export default {
         color: white;
         .sidebar__navbar_group {
             display: flex;
-            gap: 1.0416666666666667vw;
+            gap: 3.0416666666666667vw;
         }
     }
     .sidebar__btns {
