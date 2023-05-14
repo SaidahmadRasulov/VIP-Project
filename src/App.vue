@@ -1,11 +1,16 @@
 <script setup>
-import {RouterView} from 'vue-router'
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <div class="flex__container">
+  <div class="flex__container" v-if="!state">
     <CNavbar />
-    <RouterView  v-bind:products="products" v-bind:orders="orders"/>
+    <RouterView v-bind:products="products" @handleSet="handleSet" v-bind:state="state" v-bind:orders="orders"
+      :ordersArray="ordersArray" :selectedCategory="selectedCategory" />
+  </div>
+  <div class="flex__container overflow__hidden" v-else>
+    <CNavbar />
+    <RouterView v-bind:products="products" @handleSet="handleSet" v-bind:state="state" v-bind:orders="orders" :selectedCategory="selectedCategory" :ordersArray="ordersArray" />
   </div>
 </template>
 <script>
@@ -70,13 +75,18 @@ export default {
           category: 'desert'
         },
       ],
-      orders: 3345
+      orders: 3345,
+      state: false,
+      ordersArray: [],
     }
   },
   components: { CNavbar },
   methods: {
     handleToggleState() {
       console.log('Toggle')
+    },
+    handleSet() {
+      this.state = !this.state
     }
   }
 }
@@ -88,9 +98,10 @@ export default {
   box-sizing: border-box;
   font-family: sans-serif;
 }
+
 ::-webkit-scrollbar {
   width: 0.5208333333333334vw;
-  background-color:  #1F1D2B;
+  background-color: #1F1D2B;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -110,10 +121,18 @@ li {
   display: flex;
 }
 
+.overflow__hidden {
+  height: 100vh;
+  overflow-y: hidden;
+}
+
 @media (min-width: 0px) and (max-width: 768px) {
   .flex__container {
     flex-direction: column-reverse;
   }
 }
 
+button {
+  cursor: pointer;
+}
 </style>

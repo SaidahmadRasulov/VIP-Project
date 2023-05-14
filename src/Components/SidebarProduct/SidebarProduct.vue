@@ -1,5 +1,5 @@
 <template>
-    <div class="products__container" v-for="product in products" v-if="products.length > 0">
+    <div class="products__container" v-for="product in ordersArray" v-if="ordersArray.length > 0">
         <div class="product__content" >
             <div class="product__title">
                 <div class="product__image">
@@ -13,7 +13,7 @@
             </div>
             <div class="product__input">
                 <input type="text" placeholder="Order Note...">
-                <button class="btn__delete" @click="handleDelete()">
+                <button class="btn__delete" @click="handleDelete">
                     <i class="bx bx-trash"></i>
                 </button>
             </div>
@@ -24,10 +24,9 @@
     </div>
 </template>
 <script>
-
 export default {
     props: {
-        products: {
+        ordersArray: {
             type: Array,
             required: true
         }
@@ -35,7 +34,7 @@ export default {
     methods: {
         handleDelete() {
             this.$emit('delete', this.id)
-        }
+        },
     }
 }
 </script>
