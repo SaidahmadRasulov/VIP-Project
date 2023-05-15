@@ -7,7 +7,7 @@
                     <span class="product__slice">{{ product.name }}</span>
                 </div>
                 <div class="product__control">
-                    <input type="number" id="orderQuantity" :maxlength="2">
+                    <input type="number" @input="handleShowValue(product, product.id)" v-model="quanty" id="orderQuantity" :maxlength="2">
                     <span>{{ product.price }}</span>
                 </div>
             </div>
@@ -25,16 +25,31 @@
 </template>
 <script>
 export default {
+    data() {
+        return {
+            quanty: 0,
+            total: 0
+        }
+    },
     props: {
         ordersArray: {
             type: Array,
             required: true
         }
     },
+    computed: {
+        
+    },
     methods: {
         handleDelete() {
             this.$emit('delete', this.id)
         },
+        handleShowValue(item, id) {
+            if(item.id == id) {
+                this.total = item.price*this.quanty;
+                this.$emit('total', this.total)
+            }
+        }
     }
 }
 </script>

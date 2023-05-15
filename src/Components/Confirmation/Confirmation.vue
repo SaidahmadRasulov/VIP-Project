@@ -32,16 +32,14 @@
                 </div>
 
             </div>
-        </div>
-        <div class="vertical__line"></div>
-        <div class="payment__container">
-            <Payment v-bind:discount="discount" v-bind:total="total" />
+            <div class="confirmation__btn">
+                <button class="confirm__btn" @click="handleBuy">Buy</button>
+            </div>
         </div>
     </div>
 </template>
 <script>
 import SidebarProduct from '../SidebarProduct/SidebarProduct.vue';
-import Payment from '../Payment/Payment.vue'
 
 export default {
     data() {
@@ -74,16 +72,19 @@ export default {
         handleDelete() {
             this.$emit('delete', this.id)
         },
+        handleBuy() {
+            this.$emit('buy', this.ordersArray)
+        }
     },
     mounted() {
         console.log(this.ordersArray)
     },
-    components: { SidebarProduct, Payment }
+    components: { SidebarProduct }
 }
 </script>
 <style lang="scss">
 .confirmation__container {
-    width: 80%;
+    width: 100%;
 }
 
 .two__border {
@@ -120,9 +121,9 @@ export default {
     display: flex;
     justify-content: space-between;
     gap: 2.0833333333333335vw;
-    width: 70%;
+    width: 35%;
     position: absolute;
-    left: 30%;
+    right: 0%;
     background-color: #1f1d2b;
     border-radius: 20px 0 0 20px;
     padding: 2.2408963585434174vh 1.0416666666666667vw;
@@ -156,4 +157,24 @@ export default {
     .btn__delete {
         font-size: 2.2011204481792715vh;
     }
-}</style>
+}
+
+.confirmation__btn {
+    text-align: end;
+}
+
+.confirm__btn {
+    width: 7.8125vw;
+    height: 5.481792717086835vh;
+    font-size:  2.2408963585434174vh;
+    border-radius: 10px;
+    background-color: #393C49;
+    border: 1px solid #393C49;
+    color: #EA7C69;
+    &:hover {
+        background-color: #EA7C69;
+        color: white;
+        box-shadow: 0px 8px 24px rgba(234, 124, 105, 0.3);
+    }
+}
+</style>

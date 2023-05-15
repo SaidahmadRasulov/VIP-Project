@@ -11,9 +11,9 @@
                     <i class="bx bx-phone"></i>
                 </li>
             </RouterLink>
-            <RouterLink to="/notification" class="default__state">
+            <RouterLink to="/news" class="default__state">
                 <li class="nav__group_item">
-                    <i class="bx bx-bell"></i>
+                    <i class="bx bx-news"></i>
                 </li>
             </RouterLink>
         </ul>
@@ -129,7 +129,6 @@ export default {
             }
         }
 
-        .nav__group_item {}
     }
 }
 

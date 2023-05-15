@@ -8,7 +8,8 @@
                         <h3>{{ formattedDate }}</h3>
                     </div>
                     <div class="home__title_input">
-                        <input type="text" placeholder="Search for food, coffe, etc..">
+                        <input type="text" v-model="searchQuery" @input="searchInput"
+                            placeholder="Search for food, coffe, etc..">
                         <i class="bx bx-search"></i>
                     </div>
                 </div>
@@ -71,9 +72,9 @@
         <section class="home__sidebar">
             <h1 class="sidebar__title">Orders #{{ orders }}</h1>
             <div class="sidebar__btns">
-                <button>Dine In</button>
-                <button>To Go</button>
-                <button>Delivery</button>
+                <button :class="{ 'sidebar__btn_active': this.dine }" @click="changeActiveDine">Dine In</button>
+                <button :class="{ 'sidebar__btn_active': this.go }" @click="changeActiveGo">To Go</button>
+                <button :class="{ 'sidebar__btn_active': this.delivery }" @click="changeActiveDelivery">Delivery</button>
             </div>
             <div class="sidebar__navbar">
                 <span>Item</span>
@@ -92,14 +93,14 @@
                 </div>
                 <div class="flex">
                     <span>Sub total</span>
-                    <span>{{ total }}</span>
+                    <span>{{total}}</span>
                 </div>
             </div>
             <button @click="handleSet" v-bind:state="state" class="continue__btn">Continue to payment</button>
         </section>
         <section class="confirmation__section" v-if="state">
             <Confirmation @setState="handleSet" @delete="handleDelete" v-bind:state="state" v-bind:discount="discount"
-                :orders-array="ordersArray" />
+                :orders="orders" :orders-array="ordersArray" @buy="handleBuy" />
         </section>
     </div>
 </template>
@@ -115,7 +116,11 @@ export default {
         return {
             discount: 0,
             total: 0,
-            category: 'All'
+            category: 'All',
+            searchQuery: '',
+            dine: true,
+            go: false,
+            delivery: false
         }
     },
     components: {
@@ -152,10 +157,17 @@ export default {
         },
         filteredProducts() {
             if (this.category === 'All') {
-                return this.products;
+                return this.products.filter((product) => {
+                    return product.name.toLowerCase().includes(this.searchQuery.toLowerCase());
+                });
             } else {
-                return this.products.filter(product => product.category === this.category);
+                return this.products.filter((product) => {
+                    return product.category.toLowerCase() === this.category.toLowerCase() && product.name.toLowerCase().includes(this.searchQuery.toLowerCase());
+                });
             }
+        },
+        searchInput() {
+            console.log('value')
         }
     },
     methods: {
@@ -164,6 +176,7 @@ export default {
         },
         handleAddToOrders(product) {
             this.ordersArray.push(product);
+            localStorage.setItem('products', this.ordersArray)
         },
         handleSet() {
             this.$emit('handleSet', this.state)
@@ -171,6 +184,30 @@ export default {
         changeCategory(category) {
             this.category = category;
             console.log(category)
+        },
+        changeActiveDine() {
+            this.dine = true;
+            if (this.go || this.delivery) {
+                this.go = false;
+                this.delivery = false;
+            }
+        },
+        changeActiveGo() {
+            this.go = true;
+            if (this.dine || this.delivery) {
+                this.dine = false;
+                this.delivery = false;
+            }
+        },
+        changeActiveDelivery() {
+            this.delivery = true;
+            if (this.dine || this.go) {
+                this.dine = false;
+                this.go = false;
+            }
+        },
+        handleBuy() {
+            this.$emit('handleBuy', this.ordersArray)
         }
     }
 }
@@ -254,9 +291,9 @@ export default {
 
     .products__content {
         display: flex;
-        justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
+        gap: 1.6041666666666665vw;
     }
 }
 
@@ -295,6 +332,16 @@ export default {
             width: 5.208333333333333vw;
             height: 4.901960784313726vh;
             font-size: 2.2408963585434174vh;
+            background: #1F1D2B;
+            border: 1px solid #393C49;
+            border-radius: 8px;
+            color: #EA7C69;
+            &.sidebar__btn_active {
+                background-color: #EA7C69;
+                color: white;
+                border: none;
+                box-shadow: 0px 8px 24px rgba(234, 124, 105, 0.32);
+            }
         }
     }
 }
@@ -366,5 +413,17 @@ export default {
         .products__content {
             flex-wrap: wrap;
         }
+
+        .home__navbar {
+            height: 25.011204481792717vh;
+            width: 90%;
+            margin: 0 auto;
+
+            ul {
+                flex-wrap: wrap;
+                gap: 1.680672268907563vh;
+            }
+        }
     }
+
 }</style>

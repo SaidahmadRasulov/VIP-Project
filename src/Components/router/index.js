@@ -1,7 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router';
 import CHome from '../CHome/CHome.vue';
-import CAbout from '../CAbout/CAbout.vue';
-import Notification from '../Notification/Notification.vue'
+import Contact from '../Contact/Contact.vue';
+import News from '../News/News.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,13 +13,13 @@ const router = createRouter({
         },
         {
             path: '/message',
-            name: 'About',
-            component: CAbout
+            name: 'Contact',
+            component: Contact
         },
         {
-            path: '/notification',
-            name: 'Notification',
-            component: Notification
+            path: '/news',
+            name: 'News',
+            component: News
         }
     ]
 })
